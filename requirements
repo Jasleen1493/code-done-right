@@ -1,5 +1,6 @@
 Credit card transaction processor
 
+
 1. Create a spring boot application
 2. You will get a directory with following folders
     1. new, processing, done, error
@@ -27,8 +28,14 @@ Credit card transaction processor
 8. Code quality
     1. 100% unit test code coverage for business logic
     2. Integration test cases
+    3. Should not be able to push code if coverage is less than 100%
+        1. Lines and branch
+    4. Github message should be like 
+        1. CCT-XX: <commit message>
+        2. Should not be able to push code if the condition is not satisfied
 9. Logging
     1. Every processed records should be logged in log file
     2. Every processing of record should have a unique id across different runs of application
     3. Except for customer id, name and address
     4. Card no and expiry date
+10. Use something like GitHub actions for CI/CD

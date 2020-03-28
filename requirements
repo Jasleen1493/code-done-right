@@ -7,7 +7,7 @@ Credit card transaction processor
         1. transactionXXXX.csv and referenceXXXX.csv, XXXX denotes an integer
 3. The application will read from data from above csv files
     1. It will be credit card transactions data having data for following entities
-        1. Cardholders, Cards, Transaction, Merchants, Banks
+        1. Cardholders, Cards, Transaction, Merchants
     2. Transaction data will be present in transactionXXXX.csv file
     3. Data for other entities will be present in referenceXXXX.csv file
     4. There could be multiple files so file with XXXX should be processed first
@@ -37,6 +37,40 @@ Credit card transaction processor
 8. Logging
     1. Every processed records should be logged in log file
     2. Every processing of record should have a unique id across different runs of application
-    3. Except for customer id, name and address
+    3. Except for customer name and address
     4. Card no and expiry date
+    5. Merchant name and address
 9. Use something like GitHub actions for CI/CD
+10. Data Model
+
+customer
+	id
+	name
+	account_no
+	address
+
+credit_card
+	card_no
+	card_type (FKey ref_card.card_type)
+	expiry_date
+	customer_id (FKey ref_card.card_type)
+
+ref_card
+	id
+	card_type
+
+transaction
+	id
+	card_no
+	merchant_id
+	transaction_type
+
+ref_transaction_type
+	id
+	transaction_type
+	
+merchant
+	id
+	account_no
+	name
+	address

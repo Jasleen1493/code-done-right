@@ -43,34 +43,46 @@ Credit card transaction processor
 9. Use something like GitHub actions for CI/CD
 10. Data Model
 
-customer
-	id
-	name
-	account_no
+	customer
+		id (PK)
+		name
+		account_no
+
 	address
+		id (PK)
+		line1
+		line2
+		city
+		state
+		country
+		pincode
 
-credit_card
-	card_no
-	card_type (FKey ref_card.card_type)
-	expiry_date
-	customer_id (FKey ref_card.card_type)
 
-ref_card
-	id
-	card_type
+	credit_card
+		card_no (PK)
+		card_type (FKey ref_card.card_type)
+		expiry_date
+		customer_id (FKey ref_card.card_type)
 
-transaction
-	id
-	card_no
-	merchant_id
-	transaction_type
+	ref_card
+		id (PK)
+		card_type
 
-ref_transaction_type
-	id
-	transaction_type
+	transaction
+		id (PK)
+		card_no (FKey credit_card.card_no)
+		merchant_id (FKey merchant.id)
+		transaction_type (FKey transaction_type.id)
+
+	ref_transaction_type
+		id (PK)
+		transaction_type
+
+	merchant
+		id (PK)
+		account_no
+		name
+
+	Note: Customer and merchant have a many to many relationship with address table
 	
-merchant
-	id
-	account_no
-	name
-	address
+

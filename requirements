@@ -1,0 +1,34 @@
+Credit card transaction processor
+
+1. Create a spring boot application
+2. You will get a directory with following folders
+    1. new, processing, done, error
+    2. new will have csv files with following naming patterns
+        1. transactionXXXX.csv and referenceXXXX.csv, XXXX denotes an integer
+3. The application will read from data from above csv files
+    1. It will be credit card transactions data having data for following entities
+        1. Cardholders, Cards, Transaction, Merchants, Banks
+    2. Transaction data will be present in transactionXXXX.csv file
+    3. Data for other entities will be present in referenceXXXX.csv file
+    4. There could be multiple files so file with XXXX should be processed first
+    5. transactionXXXX.csv and referenceXXXX.csv can be processed in parallel
+    6. Transaction data files could be very big, data for rest of entities will be very small
+4. Process the data and mark the file as processed
+5. This process will run every two hours 
+    1. Process will not run unless the previous run have been successful.
+6. Error handling
+    1. Do not process any file that does not correspond to naming convention
+    2. If you get any schema error do not process the record and put it in an error file with same name as original file with error appended to it
+        1. e.g. transactions0123.csv will have transactions0123-error.csv
+    3. Do not process a file if you find more than
+7. Publish the processes records into a separate Kafka topic
+    1. One topic for transactions
+    2. One topic for other entities
+8. Code quality
+    1. 100% unit test code coverage for business logic
+    2. Integration test cases
+9. Logging
+    1. Every processed records should be logged in log file
+    2. Every processing of record should have a unique id across different runs of application
+    3. Except for customer id, name and address
+    4. Card no and expiry date

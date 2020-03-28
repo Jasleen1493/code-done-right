@@ -1,6 +1,5 @@
 Credit card transaction processor
 
-
 1. Create a spring boot application
 2. You will get a directory with following folders
     1. new, processing, done, error, garbage

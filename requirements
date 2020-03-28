@@ -39,3 +39,4 @@ Credit card transaction processor
     3. Except for customer id, name and address
     4. Card no and expiry date
 10. Use something like GitHub actions for CI/CD
+11. Containerize the solution

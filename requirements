@@ -85,4 +85,88 @@ Credit card transaction processor
 
 	Note: Customer and merchant have a many to many relationship with address table
 	
+	
+Credit card transaction handler
+
+1. Create a spring boot application
+2. Listen to kafka topics as created by credit card transaction processor
+    1. Topic listener for transactions
+    2. Topic listener for other entities
+3. Read every record in topic and persist it in databse of your choice
+    1. Please take meaningful defaults for column sizes for various fields
+4. Create following rest apis 
+    1. Fetch transactions by credit card type
+    	1. Sortable by date of trx, customer country, merchant country
+	2. should be able to fetch trx pagewise, should be able to specify page size as well
+    2. Fetch transaction for a date range, last month, current month
+    	1. Sortable by date of trx, customer country, merchant country
+	2. should be able to fetch trx pagewise, should be able to specify page size as well
+    3. Fetch transaction for a customer or merchant for a date range, last month, current month
+    	1. Sortable by date of trx, customer country, merchant country
+	2. should be able to fetch trx pagewise, should be able to specify page size as well
+    4. Default page size is 20 and page no 1
+6. Input handling
+    1. Validate input fields, choose meaningful formats default values
+    2. Handle sql injection issues
+6. Output handling
+    1. Client must never receive an exception
+    2. If no record exist for a search criteria then "No data exists for your search criteria" should be returned along with an empty object.
+7. Code quality
+    1. 100% unit test code coverage for business logic
+    2. Integration test cases
+    3. Should not be able to push code if coverage is less than 100%
+        1. Lines and branch
+    4. Github message should be like 
+        1. CCT-XX: <commit message>
+        2. Should not be able to push code if the condition is not satisfied
+8. Logging
+    1. Every processed records should be logged in log file
+    2. Every processing of record should have a unique id across different runs of application
+    3. Except for customer name and address
+    4. Card no and expiry date
+    5. Merchant name and address
+9. Use something like GitHub actions for CI/CD
+10. Data Model
+
+	customer
+		id (PK)
+		name
+		account_no
+
+	address
+		id (PK)
+		line1
+		line2
+		city
+		state
+		country
+		pincode
+
+
+	credit_card
+		card_no (PK)
+		card_type (FKey ref_card.card_type)
+		expiry_date
+		customer_id (FKey customer.id)
+
+	ref_card
+		id (PK)
+		card_type
+
+	transaction
+		id (PK)
+		card_no (FKey credit_card.card_no)
+		merchant_id (FKey merchant.id)
+		transaction_type (FKey transaction_type.id)
+
+	ref_transaction_type
+		id (PK)
+		transaction_type
+
+	merchant
+		id (PK)
+		account_no
+		name
+
+	Note: Customer and merchant have a many to many relationship with address table
 

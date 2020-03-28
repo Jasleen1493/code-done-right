@@ -62,7 +62,7 @@ Credit card transaction processor
 		card_no (PK)
 		card_type (FKey ref_card.card_type)
 		expiry_date
-		customer_id (FKey ref_card.card_type)
+		customer_id (FKey customer.id)
 
 	ref_card
 		id (PK)

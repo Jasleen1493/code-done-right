@@ -1,3 +1,51 @@
-1. Project Set Up
-2. Record Processing
-3. Kafka POC
+Sprint 0: Project Set Up
+Stories :
+1. Springboot application setup
+2. Git operations validation setup (commit, push)
+3. CI/CD Setup
+4. Code Quality setup 
+5. Logging Mechanism
+
+Epic 2. Record Processing
+1. Data Modelling
+Description:  Database design of data into respective tables along with required relationships among them.
+Acceptance Criteria: 
+> Demonstration of correct behaviours among entities by using test data in database.
+
+2. Directory Management
+Description : There shall exists five types of folders in the application for stories respective csv files, namely, new, processing, done,
+error and garbage. New folder consists of all new files that need to be read, processing folder will contain files that are being 
+processed, done folder will contain files that are successfully processed, error folder will contain files giving errors and garbage 
+will contain files having incoorect naming conventions.
+Acceptance Criteria:
+> All csv files must follow naming patterns as transactionXXXX.csv and referenceXXXX.csv, XXXX denotes an integer.
+> Files having incorrect naming convention must be available in garbage folder.
+> New files must be received in new folder.
+> Error files must be created with same name as original file with error appended to it and must be stored in error folder containing the 
+error message. Illustrtaion 
+of the same should be transactions0123.csv must have transactions0123-error.csv
+> File should be moved to processing folder before start processing.
+> After successful processing completion, files should be sent to done folder from processing folder.
+> Code qulaity should meet required quality checks.
+
+3. Files Agenda
+Description: Two types of files are available in new folder, namely, transactionXXXX.csv and referenceXXXX.csv, XXXX denotes an integer, where 
+transaction data will be present in transactionXXXX.csv file and data for other entities data will be present in referenceXXXX.csv file. 
+Acceptance Criteria:
+> The application must successfully read data from csv files present in new folder.
+> transactionXXXX.csv file must only contain data related to transaction and referenceXXXX.csv file must contain data about all the other
+entities except transaction.
+> Code qulaity should meet required quality checks.
+
+3.Processing Behaviour
+Description: Multiple files are available for processing, which shall process in every two hours and can be processed parallely as well.
+The order of processing must be on the basis of files naming convention, where xxxx denotes a integer and files having smallest number
+appended to it's name must be processed first.
+Acceptance Criteria: 
+> There can be multiple files, so file with XXXX should be processed first.
+> Process should not run untill the previous run is successful.
+> Process must run after every two hours.
+
+Epic 3. Kafka POC
+1. Kafka topics setup
+2. Integration of kafka with the application

@@ -94,6 +94,8 @@ Credit card transaction handler
     2. Topic listener for other entities
 3. Read every record in topic and persist it in databse of your choice
     1. Please take meaningful defaults for column sizes for various fields
+4. Create tables
+    1. Use any database scm tool to do it, flyway, liquibase etc
 4. Create following rest apis 
     1. Fetch transactions by credit card type
     	1. Sortable by date of trx, customer country, merchant country

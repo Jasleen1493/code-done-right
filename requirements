@@ -41,7 +41,8 @@ Credit card transaction processor
     4. Card no and expiry date
     5. Merchant name and address
 9. Use something like GitHub actions for CI/CD
-10. Data Model
+10. Containerise the application
+11. Data Model
 
 	customer
 		id (PK)
@@ -128,7 +129,11 @@ Credit card transaction handler
     4. Card no and expiry date
     5. Merchant name and address
 9. Use something like GitHub actions for CI/CD
-10. Data Model
+10. Containerise the application
+    1. Can use something like docker compose now that you have two applications for running multiple containers on local
+    2. Optional: It would help if you know docker swarm and run on vms
+    3. Deploy on minikube on Local
+11. Data Model
 
 	customer
 		id (PK)

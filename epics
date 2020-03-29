@@ -5,6 +5,7 @@ Stories :
 3. CI/CD Setup
 4. Code Quality setup 
 5. Logging Mechanism
+6. Testing framework
 
 Epic 1. Record Processing
 
@@ -13,17 +14,13 @@ Stories:
 1. File Validation
 
 Description:
-A user shall read new file from new folder and check the format of name of the file. If format of file name matches with the required 
+Read new files from new folder and check the format of name of the file. If format of file name matches with the required 
 pattern, then file shall be send further for processing, by moving the file into processing folder, else if incorrect format found then
 file shall be send to garbage folder.
 
 Acceptance Criteria: 
-> User must be able to read new file successfully from new folder.
 > Files with correct name formats must be available in processing folder.
 > Files with incorrect name formats must be available in garbage folder.
-> Appropriate logging to be maintained for file read.
-> Code quality must suffice the expected quality checks.
-
 
 2. File Processing
 
@@ -35,27 +32,23 @@ file shall be sent to error folder with same file name with error appended, for 
 transactions0123.csv consisting of the error description, else call publishToKafka and write the file to done folder.
 
 Acceptance Criteria:
-> A file must be read successfully from processing folder, if multiple files present, order of processing must be correctly followed
-> Processing file must be able to call publishToKafka
-> successful processed file must be available in done folder
-> File having issue in reading records from file line wise must be sent to error folder with correct naming convention
-> Appropriate logging to be maintained for file read.
-> Code quality must suffice the expected quality checks.
+> Read files from processing folder and process them record by record
+> Processing file must be able to call publishToKafka (subject to availability)
+> Successful processed records pushed to done folder with correct naming convention
+> Erroneous processed records pushed to done folder with correct naming convention
 
-3. Kafka Implementation
+4. Kafka POC
+Understanding how kafka works
+Setting up kafka on local and publishig and reading from kafka from java code
+
+5. Kafka Publisher
 
 Description:
 All processing shall be posted on kafka topic, one topic for transaction and another topic for other entities.Kafka Implementation shall
 include Kafka POC completion.
 
 Acceptance Criteria:
-> Transaction types of files must be available on transaction topic
-> Other files must be available on another topic other than transaction
-> Appropriate logging to be maintained for file read.
-> Code quality must suffice the expected quality checks.
+> Kafka topics setup
+> Integration of kafka with the application
+> Create publisher and publish to kafka topic
 
-Epic 2. Kafka POC
-
-1. Kafka topics setup
-2. Integration of kafka with the application
-3. Testing of kafka integration 

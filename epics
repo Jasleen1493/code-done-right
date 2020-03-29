@@ -6,46 +6,55 @@ Stories :
 4. Code Quality setup 
 5. Logging Mechanism
 
-Epic 2. Record Processing
-1. Data Modelling
-Description:  Database design of data into respective tables along with required relationships among them.
+Epic 1. Record Processing
+
+Stories: 
+
+1. File Validation
+
+Description:
+A user shall read new file from new folder and check the format of name of the file. If format of file name matches with the required 
+pattern, then file shall be send further for processing, by moving the file into processing folder, else if incorrect format found then
+file shall be send to garbage folder.
+
 Acceptance Criteria: 
-> Demonstration of correct behaviours among entities by using test data in database.
+> User must be able to read new file successfully from new folder.
+> Files with correct name formats must be available in processing folder.
+> Files with incorrect name formats must be available in garbage folder.
+> Appropriate logging to be maintained for file read.
+> Code quality must suffice the expected quality checks.
 
-2. Directory Management
-Description : There shall exists five types of folders in the application for stories respective csv files, namely, new, processing, done,
-error and garbage. New folder consists of all new files that need to be read, processing folder will contain files that are being 
-processed, done folder will contain files that are successfully processed, error folder will contain files giving errors and garbage 
-will contain files having incoorect naming conventions.
+
+2. File Processing
+
+Description:
+A user shall read files from processing folder line wise. Multiple files can be available for processing, which shall process in every 
+two hours and can be processed parallely as well.The order of processing must be on the basis of files naming convention, where xxxx
+denotes a integer and files having smallest number present in it's name must be processed first. If an issue occurs with record then 
+file shall be sent to error folder with same file name with error appended, for example transactions0123-error.csv for file
+transactions0123.csv consisting of the error description, else call publishToKafka and write the file to done folder.
+
 Acceptance Criteria:
-> All csv files must follow naming patterns as transactionXXXX.csv and referenceXXXX.csv, XXXX denotes an integer.
-> Files having incorrect naming convention must be available in garbage folder.
-> New files must be received in new folder.
-> Error files must be created with same name as original file with error appended to it and must be stored in error folder containing the 
-error message. Illustrtaion 
-of the same should be transactions0123.csv must have transactions0123-error.csv
-> File should be moved to processing folder before start processing.
-> After successful processing completion, files should be sent to done folder from processing folder.
-> Code qulaity should meet required quality checks.
+> A file must be read successfully from processing folder, if multiple files present, order of processing must be correctly followed
+> Processing file must be able to call publishToKafka
+> successful processed file must be available in done folder
+> File having issue in reading records from file line wise must be sent to error folder with correct naming convention
+> Appropriate logging to be maintained for file read.
+> Code quality must suffice the expected quality checks.
 
-3. Files Agenda
-Description: Two types of files are available in new folder, namely, transactionXXXX.csv and referenceXXXX.csv, XXXX denotes an integer, where 
-transaction data will be present in transactionXXXX.csv file and data for other entities data will be present in referenceXXXX.csv file. 
+3. Kafka Implementation
+
+Description:
+All processing shall be posted on kafka topic, one topic for transaction and another topic for other entities.Kafka Implementation shall
+include Kafka POC completion.
+
 Acceptance Criteria:
-> The application must successfully read data from csv files present in new folder.
-> transactionXXXX.csv file must only contain data related to transaction and referenceXXXX.csv file must contain data about all the other
-entities except transaction.
-> Code qulaity should meet required quality checks.
-
-3.Processing Behaviour
-Description: Multiple files are available for processing, which shall process in every two hours and can be processed parallely as well.
-The order of processing must be on the basis of files naming convention, where xxxx denotes a integer and files having smallest number
-appended to it's name must be processed first.
-Acceptance Criteria: 
-> There can be multiple files, so file with XXXX should be processed first.
-> Process should not run untill the previous run is successful.
-> Process must run after every two hours.
+> Transaction types of files must be available on transaction topic
+> Other files must be available on another topic other than transaction
+> Appropriate logging to be maintained for file read.
+> Code quality must suffice the expected quality checks.
 
 Epic 3. Kafka POC
 1. Kafka topics setup
 2. Integration of kafka with the application
+3. Testing of kafka integration 

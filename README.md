@@ -9,3 +9,10 @@ End to end software application development using :
 <li>SonarQube</li>
 <li>Jenkins</li>
 <li>Kafka</li>
+</ul>
+
+[Requirements](https://github.com/Jasleen1493/code-done-right/docs/requirements.md)
+
+[Epics](https://github.com/Jasleen1493/code-done-right/docs/epics.md)
+
+[Project](https://github.com/Jasleen1493/code-done-right/projects/1)

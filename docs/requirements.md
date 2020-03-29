@@ -49,16 +49,6 @@ Credit card transaction processor
 		name
 		account_no
 
-	address
-		id (PK)
-		line1
-		line2
-		city
-		state
-		country
-		pincode
-
-
 	credit_card
 		card_no (PK)
 		card_type (FKey ref_card.card_type)
@@ -139,16 +129,6 @@ Credit card transaction handler
 		id (PK)
 		name
 		account_no
-
-	address
-		id (PK)
-		line1
-		line2
-		city
-		state
-		country
-		pincode
-
 
 	credit_card
 		card_no (PK)

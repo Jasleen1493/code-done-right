@@ -11,8 +11,8 @@ End to end software application development using :
 <li>Kafka</li>
 </ul>
 
-[Requirements](https://github.com/Jasleen1493/code-done-right/docs/requirements.md)
+[Requirements](https://github.com/Jasleen1493/code-done-right/blob/master/docs/requirements.md)
 
-[Epics](https://github.com/Jasleen1493/code-done-right/docs/epics.md)
+[Epics](https://github.com/Jasleen1493/code-done-right/blob/master/docs/epics.md)
 
 [Project](https://github.com/Jasleen1493/code-done-right/projects/1)

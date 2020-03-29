@@ -15,8 +15,7 @@ Stories:
 
 Description:
 Read new files from new folder and check the format of name of the file. If format of file name matches with the required 
-pattern, then file shall be send further for processing, by moving the file into processing folder, else if incorrect format found then
-file shall be send to garbage folder.
+pattern, then move the file into processing folder, else if incorrect format found then move to garbage folder.
 
 Acceptance Criteria: 
 > Files with correct name formats must be available in processing folder.
@@ -25,15 +24,14 @@ Acceptance Criteria:
 2. File Processing
 
 Description:
-A user shall read files from processing folder line wise. Multiple files can be available for processing, which shall process in every 
-two hours and can be processed parallely as well.The order of processing must be on the basis of files naming convention, where xxxx
-denotes a integer and files having smallest number present in it's name must be processed first. If an issue occurs with record then 
-file shall be sent to error folder with same file name with error appended, for example transactions0123-error.csv for file
-transactions0123.csv consisting of the error description, else call publishToKafka and write the file to done folder.
+Read new files from processing folder every two hours.The processing must be on the basis of files naming convention, where xxxx
+denotes a integer and files having smallest number present in it's name must be processed first. 
+If an issue occurs with record then file shall be sent to error folder with same file name with error appended, for example transactions0123-error.csv for file
+transactions0123.csv consisting of the error description, else call kafka publisher and move the record to done folder.
 
 Acceptance Criteria:
 > Read files from processing folder and process them record by record
-> Processing file must be able to call publishToKafka (subject to availability)
+> Processing file must be able to call kafka publisher (subject to availability)
 > Successful processed records pushed to done folder with correct naming convention
 > Erroneous processed records pushed to done folder with correct naming convention
 

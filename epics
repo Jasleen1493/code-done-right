@@ -54,7 +54,8 @@ Acceptance Criteria:
 > Appropriate logging to be maintained for file read.
 > Code quality must suffice the expected quality checks.
 
-Epic 3. Kafka POC
+Epic 2. Kafka POC
+
 1. Kafka topics setup
 2. Integration of kafka with the application
 3. Testing of kafka integration 

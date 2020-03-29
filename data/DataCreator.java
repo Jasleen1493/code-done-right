@@ -34,7 +34,7 @@ public class DataCreator {
   private static void createEntities() {
     FileWriter writer;
     try {
-      writer = new FileWriter("reference0001.txt");
+      writer = new FileWriter("./new/reference0001.txt");
       refCard(writer);
       refTrxType(writer);
       customer(writer);
@@ -115,9 +115,9 @@ public class DataCreator {
     return () -> {
       try {
         System.out.println("Starting: " + fileId);
-        final FileWriter writer = new FileWriter("transactions" + fileId + ".txt");
+        final FileWriter writer = new FileWriter("./new/transactions" + fileId + ".txt");
         Random rand = new Random();
-        LongStream.range(1L, 9999999L).forEach(value -> {
+        LongStream.range(1L, 99L).forEach(value -> {
           try {
             writer.write(fileId + "" + value + "," +
               creditCard[rand.nextInt(15)] + "," +

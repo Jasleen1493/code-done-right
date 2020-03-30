@@ -55,56 +55,59 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
 				<version>${jacoco.version}</version>
 				<executions>
 					<execution>
+						<id>prepare-agent</id>
 						<goals>
 							<goal>prepare-agent</goal>
 						</goals>
 					</execution>
 					<execution>
-						<id>jacoco-report</id>
-						<phase>test</phase>
+						<id>report</id>
+						<phase>prepare-package</phase>
 						<goals>
 							<goal>report</goal>
 						</goals>
 					</execution>
-					<!-- Add this checking -->
 					<execution>
-						<id>jacoco-check</id>
+						<id>post-unit-test</id>
+						<phase>test</phase>
 						<goals>
-							<goal>check</goal>
+							<goal>report</goal>
 						</goals>
 						<configuration>
-							<rules>
-								<rule>
-									<element>PACKAGE</element>
-									<limits>
-										<limit>
-											<counter>LINE</counter>
-											<value>COVEREDRATIO</value>
-											<minimum>1</minimum>
-										</limit>
-										<limit>
-											<counter>BRANCH</counter>
-											<value>COVEREDRATIO</value>
-											<minimum>1</minimum>
-										</limit>
-									</limits>
-								</rule>
-							</rules>
-							<excludes>
-								<exclude>com/credit/card/processor/constants/**</exclude>
-								<exclude>com/credit/card/processor/ProcessorApplication.class</exclude>
-							</excludes>
+							<dataFile>target/jacoco.exec</dataFile>
+							<outputDirectory>target/jacoco-ut</outputDirectory>
 						</configuration>
 					</execution>
-
 				</executions>
+				<configuration>
+					<rules>
+						<rule>
+							<element>CLASS</element>
+							<limits>
+								<limit>
+									<counter>LINE</counter>
+									<value>COVEREDRATIO</value>
+									<minimum>100%</minimum>
+								</limit>
+								<limit>
+									<counter>BRANCH</counter>
+									<value>COVEREDRATIO</value>
+									<minimum>100%</minimum>
+								</limit>
+							</limits>
+						</rule>
+					</rules>
+					<excludes>
+						<exclude>com/credit/card/processor/constants/**</exclude>
+						<exclude>com/credit/card/processor/ProcessorApplication.class</exclude>
+					</excludes>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>

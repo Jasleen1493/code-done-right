@@ -1,0 +1,8 @@
+2020-04-01 01:11:29.301  INFO PID --- [  restartedMain] c.c.c.p.ProcessorApplication             {} : Starting ProcessorApplication on NEW with PID 7780 (D:\JasleenCode\CreditCardSystem\code-done-right\target\classes started by Rajat in D:\JasleenCode\CreditCardSystem\code-done-right)
+2020-04-01 01:11:29.310  INFO PID --- [  restartedMain] c.c.c.p.ProcessorApplication             {} : No active profile set, falling back to default profiles: default
+2020-04-01 01:11:30.132  INFO PID --- [  restartedMain] c.c.c.p.ProcessorApplication             {} : Started ProcessorApplication in 1.907 seconds (JVM running for 3.44)
+2020-04-01 01:11:30.232  INFO PID --- [  restartedMain] c.c.c.p.l.LogExecute                     {RECORD_ID=a8f22b21-daf6-42ed-bb62-c594f9dc28fe} : Test Log4j with MDC
+2020-04-01 01:11:51.156  INFO PID --- [  restartedMain] c.c.c.p.ProcessorApplication             {} : Starting ProcessorApplication on NEW with PID 9504 (D:\JasleenCode\CreditCardSystem\code-done-right\target\classes started by Rajat in D:\JasleenCode\CreditCardSystem\code-done-right)
+2020-04-01 01:11:51.166  INFO PID --- [  restartedMain] c.c.c.p.ProcessorApplication             {} : No active profile set, falling back to default profiles: default
+2020-04-01 01:11:52.063  INFO PID --- [  restartedMain] c.c.c.p.ProcessorApplication             {} : Started ProcessorApplication in 2.012 seconds (JVM running for 3.553)
+2020-04-01 01:11:52.148  INFO PID --- [  restartedMain] c.c.c.p.l.LogExecute                     {RECORD_ID=48621eff-c4a4-416b-9a91-e97f18398461} : Test Log4j with MDC

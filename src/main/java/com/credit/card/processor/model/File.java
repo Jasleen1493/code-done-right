@@ -6,6 +6,7 @@ import lombok.NonNull;
 
 @Data
 @AllArgsConstructor
+@NonNull
 public class File {
     @NonNull
     private String name;

@@ -10,3 +10,12 @@
 2020-04-04 20:11:02.651  INFO 19761 --- [main] c.c.c.p.ProcessorApplicationTests        : Starting ProcessorApplicationTests on jasleen with PID 19761 (started by jasleen in /home/jasleen/Projects/code-done-right)
 2020-04-04 20:11:02.695  INFO 19761 --- [main] c.c.c.p.ProcessorApplicationTests        : No active profile set, falling back to default profiles: default
 2020-04-04 20:11:04.172  INFO 19761 --- [main] c.c.c.p.ProcessorApplicationTests        : Started ProcessorApplicationTests in 2.234 seconds (JVM running for 4.756)
+2020-04-04 20:33:45.384  INFO 20401 --- [main] c.c.c.p.ProcessorApplicationTests        : Starting ProcessorApplicationTests on jasleen with PID 20401 (started by jasleen in /home/jasleen/Projects/code-done-right)
+2020-04-04 20:33:45.387  INFO 20401 --- [main] c.c.c.p.ProcessorApplicationTests        : No active profile set, falling back to default profiles: default
+2020-04-04 20:33:48.012  INFO 20401 --- [main] c.c.c.p.ProcessorApplicationTests        : Started ProcessorApplicationTests in 3.434 seconds (JVM running for 7.194)
+2020-04-05 03:01:12.226  INFO 394 --- [main] c.c.c.p.ProcessorApplicationTests        : Starting ProcessorApplicationTests on jasleen with PID 394 (started by jasleen in /home/jasleen/Projects/code-done-right)
+2020-04-05 03:01:12.229  INFO 394 --- [main] c.c.c.p.ProcessorApplicationTests        : No active profile set, falling back to default profiles: default
+2020-04-05 03:01:14.599  INFO 394 --- [main] c.c.c.p.ProcessorApplicationTests        : Started ProcessorApplicationTests in 3.481 seconds (JVM running for 7.489)
+2020-04-05 03:02:27.380  INFO 599 --- [main] c.c.c.p.ProcessorApplicationTests        : Starting ProcessorApplicationTests on jasleen with PID 599 (started by jasleen in /home/jasleen/Projects/code-done-right)
+2020-04-05 03:02:27.386  INFO 599 --- [main] c.c.c.p.ProcessorApplicationTests        : No active profile set, falling back to default profiles: default
+2020-04-05 03:02:29.467  INFO 599 --- [main] c.c.c.p.ProcessorApplicationTests        : Started ProcessorApplicationTests in 2.907 seconds (JVM running for 6.067)

@@ -22,12 +22,18 @@ public class FileService {
     }
 
     public boolean isValid(File file) {
+        Boolean flag = false;
         ValidationStrategy fileValidation = FileValidationStrategy.UNSUPPORTED;
         for (Iterator<ValidationStrategy> iterator = fileValidationStrategies.iterator(); iterator.hasNext(); ) {
             fileValidation = iterator.next();
-            return fileValidation.validate(file);
+            if (fileValidation.validate(file)) {
+                flag = true;
+            } else {
+                flag = false;
+                break;
+            }
         }
-        return false;
+        return flag;
     }
 
     public List<FileValidationType> getInvalidFileValidationTypes(File file) {

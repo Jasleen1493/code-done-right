@@ -10,7 +10,7 @@ public class Utils {
 
 	public static boolean fileNameMatcher(String fileName){
 		String regex1 = "^transaction[0-4]{4}.*";
-		String regex2 = "^reference[0-4].{4}.*";
+		String regex2 = "^reference[0-4]{4}.*";
 		return (Pattern.matches(regex1, fileName)|| Pattern.matches(regex2,fileName));
 	}
 }

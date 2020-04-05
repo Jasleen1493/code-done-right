@@ -31,3 +31,24 @@
 2020-04-05 03:23:06.090  INFO 2545 --- [main] c.c.c.p.ProcessorApplicationTests        : Starting ProcessorApplicationTests on jasleen with PID 2545 (started by jasleen in /home/jasleen/Projects/code-done-right)
 2020-04-05 03:23:06.093  INFO 2545 --- [main] c.c.c.p.ProcessorApplicationTests        : No active profile set, falling back to default profiles: default
 2020-04-05 03:23:07.869  INFO 2545 --- [main] c.c.c.p.ProcessorApplicationTests        : Started ProcessorApplicationTests in 2.492 seconds (JVM running for 5.393)
+2020-04-05 03:41:53.578  INFO 3771 --- [restartedMain] c.c.card.processor.ProcessorApplication  : Starting ProcessorApplication on jasleen with PID 3771 (/home/jasleen/Projects/code-done-right/target/classes started by jasleen in /home/jasleen/Projects/code-done-right)
+2020-04-05 03:41:53.583  INFO 3771 --- [restartedMain] c.c.card.processor.ProcessorApplication  : No active profile set, falling back to default profiles: default
+2020-04-05 03:41:55.295  INFO 3771 --- [restartedMain] c.c.card.processor.ProcessorApplication  : Started ProcessorApplication in 2.856 seconds (JVM running for 3.753)
+2020-04-05 03:44:10.662  INFO 3930 --- [restartedMain] c.c.card.processor.ProcessorApplication  : Starting ProcessorApplication on jasleen with PID 3930 (/home/jasleen/Projects/code-done-right/target/classes started by jasleen in /home/jasleen/Projects/code-done-right)
+2020-04-05 03:44:10.669  INFO 3930 --- [restartedMain] c.c.card.processor.ProcessorApplication  : No active profile set, falling back to default profiles: default
+2020-04-05 03:44:12.096  INFO 3930 --- [restartedMain] c.c.card.processor.ProcessorApplication  : Started ProcessorApplication in 2.393 seconds (JVM running for 3.308)
+2020-04-05 03:44:32.246  INFO 4014 --- [main] c.c.c.p.ProcessorApplicationTests        : Starting ProcessorApplicationTests on jasleen with PID 4014 (started by jasleen in /home/jasleen/Projects/code-done-right)
+2020-04-05 03:44:32.248  INFO 4014 --- [main] c.c.c.p.ProcessorApplicationTests        : No active profile set, falling back to default profiles: default
+2020-04-05 03:44:33.180  INFO 4014 --- [main] c.c.c.p.ProcessorApplicationTests        : Started ProcessorApplicationTests in 1.462 seconds (JVM running for 3.639)
+2020-04-05 05:29:45.896  INFO 8740 --- [main] c.c.c.p.ProcessorApplicationTests        : Starting ProcessorApplicationTests on jasleen with PID 8740 (started by jasleen in /home/jasleen/Projects/code-done-right)
+2020-04-05 05:29:45.919  INFO 8740 --- [main] c.c.c.p.ProcessorApplicationTests        : No active profile set, falling back to default profiles: default
+2020-04-05 05:29:47.408  INFO 8740 --- [main] c.c.c.p.ProcessorApplicationTests        : Started ProcessorApplicationTests in 2.161 seconds (JVM running for 5.105)
+2020-04-05 05:30:47.092  INFO 8906 --- [main] c.c.c.p.ProcessorApplicationTests        : Starting ProcessorApplicationTests on jasleen with PID 8906 (started by jasleen in /home/jasleen/Projects/code-done-right)
+2020-04-05 05:30:47.094  INFO 8906 --- [main] c.c.c.p.ProcessorApplicationTests        : No active profile set, falling back to default profiles: default
+2020-04-05 05:30:48.538  INFO 8906 --- [main] c.c.c.p.ProcessorApplicationTests        : Started ProcessorApplicationTests in 2.047 seconds (JVM running for 4.551)
+2020-04-05 05:32:19.858  INFO 9070 --- [main] c.c.c.p.ProcessorApplicationTests        : Starting ProcessorApplicationTests on jasleen with PID 9070 (started by jasleen in /home/jasleen/Projects/code-done-right)
+2020-04-05 05:32:19.861  INFO 9070 --- [main] c.c.c.p.ProcessorApplicationTests        : No active profile set, falling back to default profiles: default
+2020-04-05 05:32:21.461  INFO 9070 --- [main] c.c.c.p.ProcessorApplicationTests        : Started ProcessorApplicationTests in 2.254 seconds (JVM running for 4.699)
+2020-04-05 05:33:33.295  INFO 9224 --- [main] c.c.c.p.ProcessorApplicationTests        : Starting ProcessorApplicationTests on jasleen with PID 9224 (started by jasleen in /home/jasleen/Projects/code-done-right)
+2020-04-05 05:33:33.299  INFO 9224 --- [main] c.c.c.p.ProcessorApplicationTests        : No active profile set, falling back to default profiles: default
+2020-04-05 05:33:34.882  INFO 9224 --- [main] c.c.c.p.ProcessorApplicationTests        : Started ProcessorApplicationTests in 2.257 seconds (JVM running for 5.091)

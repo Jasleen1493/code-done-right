@@ -8,6 +8,7 @@ public interface Constant {
     String GARBAGE = "garbage";
     String DONE = "done";
     String ERROR = "error";
+    String NEW_FOLDER_PATH = "data/new/";
     String PROCESSING_FOLDER_PATH = "data/processing/";
     String GARBAGE_FOLDER_PATH = "data/garbage/";
     String DONE_FOLDER_PATH = "data/done/";

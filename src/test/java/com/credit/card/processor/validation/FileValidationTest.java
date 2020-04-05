@@ -7,12 +7,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.regex.Pattern;
 
 public class FileValidationTest {
     @Test
@@ -48,32 +45,10 @@ public class FileValidationTest {
         Set<ValidationStrategy> strategies = new LinkedHashSet<ValidationStrategy>();
         strategies.add(FileValidationStrategy.NAME);
         strategies.add(FileValidationStrategy.FOLDER);
-        File file = new File("transactions1000.txt", "data/new/transactions1000.txt", "new");
+        File file = new File("transactions1005.txt", "data/new/transactions1005.txt", "new");
         FileService fileService = new FileService(strategies);
         List<FileValidationType> fileValidationTypes = fileService.getInvalidFileValidationTypes(file);
         Assertions.assertEquals(1, fileValidationTypes.size());
         Assertions.assertEquals(FileValidationType.NAME, fileValidationTypes.get(0));
-    }
-
-    @Test
-    public void testCopyFileToProcessingFolder() throws IOException {
-        File file = new File("transaction1004.csv", "data/new/transaction1004.txt", "new");
-        Set<ValidationStrategy> strategies = new LinkedHashSet<ValidationStrategy>();
-        strategies.add(FileValidationStrategy.NAME);
-        strategies.add(FileValidationStrategy.FOLDER);
-        FileService fileService = new FileService(strategies);
-        fileService.copyFileToFolder(file);
-        Assertions.assertNotNull(Files.exists(Paths.get(file.getPath())));
-    }
-
-    @Test
-    public void testCopyfileToGarbageFolder() throws IOException {
-        File file = new File("transactions1005.csv", "data/new/transactions1005.txt", "new");
-        Set<ValidationStrategy> strategies = new LinkedHashSet<ValidationStrategy>();
-        strategies.add(FileValidationStrategy.NAME);
-        strategies.add(FileValidationStrategy.FOLDER);
-        FileService fileService = new FileService(strategies);
-        fileService.copyFileToFolder(file);
-        Assertions.assertNotNull(Files.exists(Paths.get(file.getPath())));
     }
 }

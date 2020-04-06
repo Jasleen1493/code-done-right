@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class LoggingAspect {
 	
-	Logger log = LoggerFactory.getLogger(LoggingAspect.class);
+	private static final Logger log = LoggerFactory.getLogger(LoggingAspect.class);
 	
 	@Pointcut(value = "execution(* com.credit.card.processor.*.*.*(..) )")
 	public void myPointcut() {

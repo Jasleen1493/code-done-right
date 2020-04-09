@@ -5,15 +5,19 @@ import com.credit.card.processor.constants.FileValidationType;
 import com.credit.card.processor.model.File;
 import com.credit.card.processor.validation.FileValidationStrategy;
 import com.credit.card.processor.validation.ValidationStrategy;
+import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
+@Service
 public class FileService {
 
     private Set<ValidationStrategy> fileValidationStrategies;

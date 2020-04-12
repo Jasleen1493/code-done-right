@@ -7,6 +7,6 @@ public class FileProcessorSchedulerTest {
     @Test
     public void testParallelFileProcessorScheduler() throws InterruptedException{
         FileProcessorScheduler fileProcessorScheduler = new FileProcessorScheduler();
-        fileProcessorScheduler.setTime();
+        //fileProcessorScheduler.setTime();
     }
 }

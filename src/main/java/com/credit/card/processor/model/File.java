@@ -2,7 +2,6 @@ package com.credit.card.processor.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NonNull;
 
 @Data

@@ -26,12 +26,12 @@ public class FileServiceTest {
     }
 
     @Test
-    public void testFileValidation() throws IOException {
+    public void testReadNewFiles() throws IOException {
         Set<ValidationStrategy> strategies = new LinkedHashSet<ValidationStrategy>();
         strategies.add(FileValidationStrategy.NAME);
         strategies.add(FileValidationStrategy.FOLDER);
         FileService fileService = new FileService(strategies);
-        Assertions.assertNotNull(fileService.processNewFiles());
+        Assertions.assertNotNull(fileService.readNewFiles());
     }
 
     @Test
@@ -50,7 +50,7 @@ public class FileServiceTest {
         strategies.add(FileValidationStrategy.NAME);
         strategies.add(FileValidationStrategy.FOLDER);
         FileService fileService = new FileService(strategies);
-        List<File> files = fileService.processNewFiles();
+        List<File> files = fileService.readNewFiles();
         Assertions.assertNotNull(files);
     }
 }

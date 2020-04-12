@@ -8,8 +8,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -20,7 +18,7 @@ public class FileServiceTest {
         strategies.add(FileValidationStrategy.NAME);
         strategies.add(FileValidationStrategy.FOLDER);
         FileService fileService = new FileService(strategies);
-        File file = fileService.createFile("data/new/transaction1006.txt");
+        File file = fileService.getFileFromFileName("data/new/transaction1006.txt");
         Assertions.assertNotNull(file);
         Assertions.assertEquals("transaction1006.txt",file.getName());
         Assertions.assertEquals("new",file.getFolder());
@@ -32,7 +30,7 @@ public class FileServiceTest {
         strategies.add(FileValidationStrategy.NAME);
         strategies.add(FileValidationStrategy.FOLDER);
         FileService fileService = new FileService(strategies);
-        Assertions.assertNotNull(fileService.fileValidation());
+        Assertions.assertNotNull(fileService.processNewFiles());
     }
 
     @Test
@@ -41,7 +39,7 @@ public class FileServiceTest {
         strategies.add(FileValidationStrategy.NAME);
         strategies.add(FileValidationStrategy.FOLDER);
         FileService fileService = new FileService(strategies);
-        //Assertions.assertEquals(0,fileService.fileValidation().size());
+        //Assertions.assertEquals(0,fileService.processNewFiles().size());
     }
 
     @Test
@@ -50,7 +48,7 @@ public class FileServiceTest {
         strategies.add(FileValidationStrategy.NAME);
         strategies.add(FileValidationStrategy.FOLDER);
         FileService fileService = new FileService(strategies);
-        fileService.getAllFilesFromPath(Constant.PROCESSING_FOLDER_PATH);
-        Assertions.assertEquals("data/processing/reference0001.txt",fileService.getAllFilesFromPath(Constant.PROCESSING_FOLDER_PATH).get(0));
+        fileService.getAllFileNamesFromPath(Constant.PROCESSING_FOLDER_PATH);
+        Assertions.assertEquals("data/processing/reference0001.txt",fileService.getAllFileNamesFromPath(Constant.PROCESSING_FOLDER_PATH).get(0));
     }
 }

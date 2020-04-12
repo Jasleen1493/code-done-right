@@ -47,7 +47,7 @@ public class ConcurrencyPOC implements Runnable {
 
     private void readFile() throws IOException {
         System.out.println("inside readFile ");
-        List<String> filesToBeProcessed = new FileService(new HashSet<>()).getAllFilesFromPath(Constant.PROCESSING_FOLDER_PATH);
+        List<String> filesToBeProcessed = new FileService(new HashSet<>()).getAllFileNamesFromPath(Constant.PROCESSING_FOLDER_PATH);
         System.out.println("filesToBeProcessed.size() = " + filesToBeProcessed.size());
         try {
             for (String file : filesToBeProcessed) {

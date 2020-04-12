@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -53,38 +54,36 @@ public class FileService {
         return validatedTypes;
     }
 
-    public File setFileAtDestPath(File file, String destPath, String destFolder) throws IOException {
-        copyFile(file.getPath(), destPath + file.getName());
-        file.setPath(destPath + file.getName());
-        file.setFolder(destFolder);
-        return file;
-    }
 
-    public void copyFile(String from, String to) throws IOException {
+    public void moveFile(String from, String to) throws IOException {
         Path src = Paths.get(from);
         Path dest = Paths.get(to);
-        Files.copy(src, dest);
+        Files.move(src, dest, StandardCopyOption.REPLACE_EXISTING);
     }
 
-    public List<File> fileValidation() throws IOException {
+    public List<File> processNewFiles() throws IOException {
         List<File> files = new ArrayList<>();
-        List<String> newFiles = getAllFilesFromPath(Constant.NEW_FOLDER_PATH);
-        if (!newFiles.isEmpty()) {
-            for (String newFile : newFiles) {
-                File file = createFile(newFile);
+        List<String> fileNames = getAllFileNamesFromPath(Constant.NEW_FOLDER_PATH);
+        if (!fileNames.isEmpty()) {
+            for (String fileName : fileNames) {
+                File file = getFileFromFileName(fileName);
+                String oldPath = file.getPath();
                 if (isValid(file)) {
-                    files.add(setFileAtDestPath(file, Constant.PROCESSING_FOLDER_PATH, Constant.PROCESSING));
-                    isProcessable(file);
+                    file.setFolder(Constant.PROCESSING);
+                    file.setPath(Constant.PROCESSING_FOLDER_PATH + file.getName());
                 } else {
+                    file.setFolder(Constant.GARBAGE);
+                    file.setPath(Constant.GARBAGE_FOLDER_PATH + file.getName());
                     getInvalidFileValidationTypes(file);
-                    files.add(setFileAtDestPath(file, Constant.GARBAGE_FOLDER_PATH, Constant.GARBAGE));
                 }
+                moveFile(oldPath, file.getPath());
+                files.add(file);
             }
         }
         return files;
     }
 
-    public File createFile(String path) {
+    public File getFileFromFileName(String path) {
         File file = null;
         String[] arr = path.split("/");
         for (int i = 0; i < arr.length; i++) {
@@ -93,19 +92,19 @@ public class FileService {
         return file;
     }
 
-    public List<String> getAllFilesFromPath(String path) throws IOException {
+    public List<String> getAllFileNamesFromPath(String path) throws IOException {
         return Files.list(Paths.get(path))
                 .filter(s -> s.toString().endsWith(".txt"))
                 .sorted()
                 .map(x -> x.toString()).collect(Collectors.toList());
     }
 
-    public boolean isProcessable(File file) throws IOException {
+    /*public boolean isProcessable(File file) throws IOException {
         // processing logic
         return true;
     }
-
-    public List<String> fileProcessor(File file) throws IOException {
+*/
+    /*public List<String> fileProcessor(File file) throws IOException {
         List<String> record = new ArrayList<>();
         if (isProcessable(file)) {
             record = Files.lines(Paths.get(file.getPath())).collect(Collectors.toList());
@@ -119,5 +118,5 @@ public class FileService {
 
     public void publishToKafka(List<String> record) {
 
-    }
+    }*/
 }

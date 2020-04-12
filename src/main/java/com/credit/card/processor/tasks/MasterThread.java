@@ -1,6 +1,10 @@
-package com.credit.card.processor.service;
+package com.credit.card.processor.tasks;
 
 import com.credit.card.processor.constants.Constant;
+import com.credit.card.processor.service.FileService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -11,7 +15,9 @@ import java.util.List;
 import java.util.concurrent.*;
 import java.util.stream.Stream;
 
-public class ConcurrencyPOC implements Runnable {
+public class MasterThread implements Runnable {
+
+    private static final Logger logger = LoggerFactory.getLogger(MasterThread.class);
 
     private static final int CONSUMER_COUNT = 5;
     private final static BlockingQueue<String> linesReadQueue = new ArrayBlockingQueue<String>(30);
@@ -19,20 +25,18 @@ public class ConcurrencyPOC implements Runnable {
     private volatile boolean isConsumer = false;
     private static boolean producerIsDone = false;
 
-    public ConcurrencyPOC(boolean consumer) {
+    public MasterThread(boolean consumer) {
         this.isConsumer = consumer;
     }
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void processThreads() {
         long startTime = System.nanoTime();
         ExecutorService producerPool = Executors.newFixedThreadPool(1);
-        producerPool.execute(new ConcurrencyPOC(false));
-        TimeUnit.SECONDS.sleep(5);
+        producerPool.submit(new MasterThread(false));
         ExecutorService consumerPool = Executors.newFixedThreadPool(5);
         for (int i = 0; i < CONSUMER_COUNT; i++) {
-            consumerPool.execute(new ConcurrencyPOC(true));
+            consumerPool.submit(new MasterThread(true));
         }
-        TimeUnit.SECONDS.sleep(5);
         producerPool.shutdown();
         consumerPool.shutdown();
 
@@ -41,45 +45,44 @@ public class ConcurrencyPOC implements Runnable {
 
         long endTime = System.nanoTime();
         long elapsedTimeInMillis = TimeUnit.MILLISECONDS.convert((endTime - startTime), TimeUnit.NANOSECONDS);
-        System.out.println("Total elapsed time: " + elapsedTimeInMillis + " ms");
-
+        logger.info("Total elapsed time: " + elapsedTimeInMillis + " ms");
     }
 
     private void readFile() throws IOException {
-        System.out.println("inside readFile ");
+        logger.info("inside readFile ");
         List<String> filesToBeProcessed = new FileService(new HashSet<>()).getAllFileNamesFromPath(Constant.PROCESSING_FOLDER_PATH);
-        System.out.println("filesToBeProcessed.size() = " + filesToBeProcessed.size());
+        logger.info("filesToBeProcessed.size() = " + filesToBeProcessed.size());
         try {
             for (String file : filesToBeProcessed) {
-                System.out.println("file = " + file);
+                logger.info("file = " + file);
                 Stream<String> lines = Files.lines(Paths.get(file), StandardCharsets.UTF_8);
                 for (String line : (Iterable<String>) lines::iterator) {
-                    System.out.println("read=" + line);
+                    logger.info("read=" + line);
                     linesReadQueue.put(line);
-                    System.out.println(Thread.currentThread().getName() + ":: producer count = " + linesReadQueue.size());
+                    logger.info(Thread.currentThread().getName() + ":: producer count = " + linesReadQueue.size());
                 }
 
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.info(e.getMessage());
         }
 
         producerIsDone = true;
-        System.out.println(Thread.currentThread().getName() + " producer is done");
+        logger.info(Thread.currentThread().getName() + " producer is done");
     }
 
     @Override
     public void run() {
-        System.out.println("run() called " + isConsumer);
+        logger.info("run() called " + isConsumer);
         if (isConsumer) {
-            System.out.println("inside consumer" + isConsumer);
+            logger.info("inside consumer " + isConsumer);
             consume();
         } else {
             try {
-                System.out.println("inside producer " + isConsumer);
+                logger.info("inside producer " + isConsumer);
                 readFile();
             } catch (IOException e) {
-                e.printStackTrace();
+                logger.info(e.getMessage());
             }
         }
     }
@@ -88,20 +91,13 @@ public class ConcurrencyPOC implements Runnable {
         try {
             while (!producerIsDone || (producerIsDone && !linesReadQueue.isEmpty())) {
                 String lineToProcess = linesReadQueue.take();
-                processCpuDummy();
-                System.out.println("procesed:" + lineToProcess);
-                System.out.println(Thread.currentThread().getName() + ":: consumer count:" + linesReadQueue.size());
+                logger.info("procesing:" + lineToProcess);
+                logger.info(Thread.currentThread().getName() + ":: consumer count:" + linesReadQueue.size());
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.info(e.getMessage());
         }
 
-        System.out.println(Thread.currentThread().getName() + " consumer is done");
-    }
-
-    public void processCpuDummy() {
-        for (long i = 0; i < 100000000l; i++) {
-            i = i + 1;
-        }
+        logger.info(Thread.currentThread().getName() + " consumer is done");
     }
 }

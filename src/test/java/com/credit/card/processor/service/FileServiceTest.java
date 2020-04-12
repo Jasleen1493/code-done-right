@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 public class FileServiceTest {
@@ -39,7 +40,8 @@ public class FileServiceTest {
         strategies.add(FileValidationStrategy.NAME);
         strategies.add(FileValidationStrategy.FOLDER);
         FileService fileService = new FileService(strategies);
-        //Assertions.assertEquals(0,fileService.processNewFiles().size());
+        List<String> fileNames = fileService.getAllFileNamesFromPath(Constant.PROCESSING_FOLDER_PATH);
+        Assertions.assertEquals("data/processing/reference0001.txt",fileNames.get(0));
     }
 
     @Test
@@ -48,7 +50,7 @@ public class FileServiceTest {
         strategies.add(FileValidationStrategy.NAME);
         strategies.add(FileValidationStrategy.FOLDER);
         FileService fileService = new FileService(strategies);
-        fileService.getAllFileNamesFromPath(Constant.PROCESSING_FOLDER_PATH);
-        Assertions.assertEquals("data/processing/reference0001.txt",fileService.getAllFileNamesFromPath(Constant.PROCESSING_FOLDER_PATH).get(0));
+        List<File> files = fileService.processNewFiles();
+        Assertions.assertNotNull(files);
     }
 }

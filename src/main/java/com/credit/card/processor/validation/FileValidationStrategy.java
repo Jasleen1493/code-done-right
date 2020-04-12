@@ -3,12 +3,14 @@ package com.credit.card.processor.validation;
 import com.credit.card.processor.constants.Constant;
 import com.credit.card.processor.constants.FileValidationType;
 import com.credit.card.processor.model.File;
-import com.credit.card.processor.util.Utils;
+
+import java.util.regex.Pattern;
 
 public enum FileValidationStrategy implements ValidationStrategy {
     NAME(FileValidationType.NAME) {
         public <T extends File> boolean validate(File file) {
-            if (Utils.fileNameMatcher(file.getName())) {
+            if (Pattern.matches(Constant.TRANSACTION_FILE_NAME_REGEX, file.getName())||
+                    Pattern.matches(Constant.REFERENCE_FILE_NAME_REGEX,file.getName())) {
                 return true;
             }
             return false;

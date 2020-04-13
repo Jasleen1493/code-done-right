@@ -1,7 +1,7 @@
 package com.credit.card.processor.validation.impl;
 
 import com.credit.card.processor.constants.Constant;
-import com.credit.card.processor.constants.FileValidationType;
+import com.credit.card.processor.validation.FileValidationType;
 import com.credit.card.processor.model.File;
 import com.credit.card.processor.validation.FileValidation;
 

@@ -3,6 +3,7 @@ package com.credit.card.processor.service;
 import com.credit.card.processor.constants.Constant;
 import com.credit.card.processor.model.File;
 import com.credit.card.processor.validation.FileValidation;
+import lombok.Data;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -13,27 +14,22 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Service
+@Data
 public class FileService {
 
-    private Set<FileValidation> fileValidationStrategies;
     private static final Logger LOGGER = LoggerFactory.getLogger(FileService.class);
 
-    public FileService(Set<FileValidation> fileValidationStrategies) throws IOException {
-        this.fileValidationStrategies = fileValidationStrategies;
-    }
-
     public boolean isValid(File file) {
-        List<FileValidation> validStrategies = fileValidationStrategies.stream().filter(fvs -> (fvs.validate(file))).collect(Collectors.toList());
-        return (validStrategies.size() == fileValidationStrategies.size());
+        List<FileValidation> validStrategies = file.getFileValidations().stream().filter(fvs -> (fvs.validate(file))).collect(Collectors.toList());
+        return (validStrategies.size() == file.getFileValidations().size());
     }
 
     public List<FileValidation> getInvalidFileValidationTypes(File file) {
-        return fileValidationStrategies.stream().filter(fvs -> (!fvs.validate(file))).collect(Collectors.toList());
+        return file.getFileValidations().stream().filter(fvs -> (!fvs.validate(file))).collect(Collectors.toList());
     }
 
     public Map<Boolean, List<File>> getFilesWithValidStatus(List<File> files) throws IOException {

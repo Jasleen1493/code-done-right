@@ -1,4 +1,4 @@
-package com.credit.card.processor.constants;
+package com.credit.card.processor.validation;
 
 public enum FileValidationType {
     NAME,

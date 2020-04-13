@@ -17,8 +17,8 @@ public class FileValidationTest {
         Set<FileValidation> strategies = new LinkedHashSet<FileValidation>();
         strategies.add(FileValidationImpl.NAME);
         strategies.add(FileValidationImpl.FOLDER);
-        File file = new File("transaction1000.csv", "data/new/transaction1000.txt", "new");
-        FileService fileService = new FileService(strategies);
+        File file = new File("transaction1000.csv", "data/new/transaction1000.txt", "new",strategies);
+        FileService fileService = new FileService();
         Assertions.assertTrue(fileService.isValid(file));
     }
 
@@ -26,8 +26,8 @@ public class FileValidationTest {
     public void testValidatorForNewFileFolder() throws IOException {
         Set<FileValidation> strategies = new LinkedHashSet<FileValidation>();
         strategies.add(FileValidationImpl.FOLDER);
-        File file = new File("transactions1000.csv", "data/new/transactions1000.txt", "new");
-        FileService fileService = new FileService(strategies);
+        File file = new File("transactions1000.csv", "data/new/transactions1000.txt", "new",strategies);
+        FileService fileService = new FileService();
         Assertions.assertTrue(fileService.isValid(file));
     }
 
@@ -35,8 +35,8 @@ public class FileValidationTest {
     public void testValidatorForNewFileName() throws IOException {
         Set<FileValidation> strategies = new LinkedHashSet<FileValidation>();
         strategies.add(FileValidationImpl.NAME);
-        File file = new File("transaction1001.txt", "data/new/transactions1001.txt", "new");
-        FileService fileService = new FileService(strategies);
+        File file = new File("transaction1001.txt", "data/new/transactions1001.txt", "new",strategies);
+        FileService fileService = new FileService();
         Assertions.assertTrue(fileService.isValid(file));
     }
 
@@ -45,8 +45,8 @@ public class FileValidationTest {
         Set<FileValidation> strategies = new LinkedHashSet<FileValidation>();
         strategies.add(FileValidationImpl.NAME);
         strategies.add(FileValidationImpl.FOLDER);
-        File file = new File("transactions1005.txt", "data/new/transactions1005.txt", "new");
-        FileService fileService = new FileService(strategies);
+        File file = new File("transactions1005.txt", "data/new/transactions1005.txt", "new",strategies);
+        FileService fileService = new FileService();
         List<FileValidation> fileValidationTypes = fileService.getInvalidFileValidationTypes(file);
         Assertions.assertEquals(1, fileValidationTypes.size());
         Assertions.assertEquals(FileValidationImpl.NAME, fileValidationTypes.get(0));
@@ -56,8 +56,8 @@ public class FileValidationTest {
         Set<FileValidation> strategies = new LinkedHashSet<FileValidation>();
         strategies.add(FileValidationImpl.NAME);
         strategies.add(FileValidationImpl.FOLDER);
-        File file = new File("reference0001.txt", "data/new/reference0001.txt", "new1");
-        FileService fileService = new FileService(strategies);
+        File file = new File("reference0001.txt", "data/new/reference0001.txt", "new1",strategies);
+        FileService fileService = new FileService();
         List<FileValidation> fileValidationTypes = fileService.getInvalidFileValidationTypes(file);
         Assertions.assertEquals(1, fileValidationTypes.size());
         Assertions.assertEquals(FileValidationImpl.FOLDER, fileValidationTypes.get(0));
@@ -67,8 +67,8 @@ public class FileValidationTest {
         Set<FileValidation> strategies = new LinkedHashSet<FileValidation>();
         strategies.add(FileValidationImpl.NAME);
         strategies.add(FileValidationImpl.FOLDER);
-        File file = new File("transactions1005.txt", "data/new/transactions1005.txt", "new1");
-        FileService fileService = new FileService(strategies);
+        File file = new File("transactions1005.txt", "data/new/transactions1005.txt", "new1",strategies);
+        FileService fileService = new FileService();
         List<FileValidation> fileValidationTypes = fileService.getInvalidFileValidationTypes(file);
         Assertions.assertEquals(2, fileValidationTypes.size());
         Assertions.assertEquals(FileValidationImpl.NAME, fileValidationTypes.get(0));

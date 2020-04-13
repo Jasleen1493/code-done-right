@@ -1,88 +1,69 @@
 package com.credit.card.processor.service;
 
 import com.credit.card.processor.constants.Constant;
-import com.credit.card.processor.constants.FileValidationType;
 import com.credit.card.processor.model.File;
-import com.credit.card.processor.validation.FileValidationStrategy;
-import com.credit.card.processor.validation.ValidationStrategy;
+import com.credit.card.processor.validation.FileValidation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.util.*;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Service
-public class FileService{
+public class FileService {
 
-    private Set<ValidationStrategy> fileValidationStrategies;
+    private Set<FileValidation> fileValidationStrategies;
+    private static final Logger LOGGER = LoggerFactory.getLogger(FileService.class);
 
-    public FileService(Set<ValidationStrategy> fileValidationStrategies) throws IOException {
+    public FileService(Set<FileValidation> fileValidationStrategies) throws IOException {
         this.fileValidationStrategies = fileValidationStrategies;
     }
 
     public boolean isValid(File file) {
-        Boolean flag = false;
-        ValidationStrategy fileValidation = FileValidationStrategy.UNSUPPORTED;
-        for (Iterator<ValidationStrategy> iterator = fileValidationStrategies.iterator(); iterator.hasNext(); ) {
-            fileValidation = iterator.next();
-            if (fileValidation.validate(file)) {
-                flag = true;
-            } else {
-                flag = false;
-                break;
-            }
-        }
-        return flag;
+        List<FileValidation> validStrategies = fileValidationStrategies.stream().filter(fvs -> (fvs.validate(file))).collect(Collectors.toList());
+        return (validStrategies.size() == fileValidationStrategies.size());
     }
 
-    public List<FileValidationType> getInvalidFileValidationTypes(File file) {
-        ValidationStrategy fileValidation = FileValidationStrategy.UNSUPPORTED;
-        List<FileValidationType> validatedTypes = new ArrayList<FileValidationType>();
-        for (Iterator<ValidationStrategy> iterator = fileValidationStrategies.iterator(); iterator.hasNext(); ) {
-            fileValidation = iterator.next();
-            if (!fileValidation.validate(file)) {
-                validatedTypes.add(fileValidation.getValidationType());
-            }
-        }
-        return validatedTypes;
+    public List<FileValidation> getInvalidFileValidationTypes(File file) {
+        return fileValidationStrategies.stream().filter(fvs -> (!fvs.validate(file))).collect(Collectors.toList());
     }
 
-    public List<File> readNewFiles() throws IOException {
-        List<File> files = new ArrayList<>();
-        List<String> fileNames = getAllFileNamesFromPath(Constant.NEW_FOLDER_PATH);
-        if (CollectionUtils.isEmpty(fileNames)) {
-            for (String fileName : fileNames) {
-                File file = getFileFromFileName(fileName);
-                String oldPath = file.getPath();
-                if (isValid(file)) {
-                    file.setFolder(Constant.PROCESSING);
-                    file.setPath(Constant.PROCESSING_FOLDER_PATH + file.getName());
-                } else {
-                    file.setFolder(Constant.GARBAGE);
-                    file.setPath(Constant.GARBAGE_FOLDER_PATH + file.getName());
-                    getInvalidFileValidationTypes(file);
-                }
-                Files.move(Paths.get(oldPath), Paths.get(file.getPath()), StandardCopyOption.REPLACE_EXISTING);
-                files.add(file);
-            }
-        }
-        return files;
+    public Map<Boolean, List<File>> getFilesWithValidStatus(List<File> files) throws IOException {
+        Map<Boolean, List<File>> filesWithValidStatus = files.stream().collect(Collectors.partitioningBy(file -> isValid(file)));
+        return filesWithValidStatus;
     }
 
-    public File getFileFromFileName(String path) {
-        String[] arr = path.split("/");
-        return Stream.of(arr).map(f->new File(arr[2], path, arr[1])).collect(Collectors.toList()).get(0);
-     }
+    public long getMovedFiles(List<File> files, String destPath, String destFolder) throws IOException {
+        return files.stream().map(fm -> {
+            try {
+                Files.move(Paths.get(fm.getPath()), Paths.get(destPath + fm.getName()), StandardCopyOption.REPLACE_EXISTING);
+            } catch (IOException e) {
+                LOGGER.info(e.getMessage());
+            }
+            fm.setPath(destPath + fm.getName());
+            fm.setFolder(destFolder);
+            return fm;
+        }).filter(f->f.getFolder().equals(destFolder)).count();
+    }
 
-    public List<String> getAllFileNamesFromPath(String path) throws IOException {
-        return Files.list(Paths.get(path))
-                .filter(s -> s.toString().endsWith(".txt"))
+    public List<File> getAllFiles(String path) throws IOException {
+        List<String> fileNames = Files.list(Paths.get(path))
+                .filter(s -> s.toString().endsWith(Constant.FILE_EXTENSION))
                 .sorted()
                 .map(x -> x.toString()).collect(Collectors.toList());
+        return fileNames.stream().map(f -> getFileFromFileName(f)).collect(Collectors.toList());
+    }
+
+    public File getFileFromFileName(String fileName) {
+        String[] arr = fileName.split("/");
+        return Stream.of(arr).map(f -> new File(arr[2], fileName, arr[1])).collect(Collectors.toList()).get(0);
     }
 }

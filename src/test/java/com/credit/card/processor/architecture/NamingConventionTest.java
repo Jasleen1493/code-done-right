@@ -1,6 +1,5 @@
 package com.credit.card.processor.architecture;
 
-import com.credit.card.processor.validation.ValidationStrategy;
 import com.tngtech.archunit.junit.AnalyzeClasses;
 import com.tngtech.archunit.junit.ArchTest;
 import com.tngtech.archunit.lang.ArchRule;

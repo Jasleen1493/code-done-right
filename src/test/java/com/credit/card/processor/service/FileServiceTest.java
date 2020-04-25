@@ -1,14 +1,12 @@
 package com.credit.card.processor.service;
 
 import com.credit.card.processor.constants.Constant;
-import com.credit.card.processor.model.File;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.io.IOException;
-import java.util.List;
 
 @SpringBootTest
 public class FileServiceTest {
@@ -16,38 +14,33 @@ public class FileServiceTest {
     private FileService fileService;
 
     @Test
-    public void testFileWithValidName() throws IOException {
-        File file = new File("reference0001.txt", "data/new/reference0001.txt", "new");
-        Assertions.assertTrue(fileService.hasValidFileName(file));
+    public void testFileWithValidName() {
+        Assertions.assertTrue(fileService.hasValidFileName("reference0001.txt"));
     }
 
     @Test
-    public void testFileWithInvalidName() throws IOException {
-        File file = new File("transactions1006.txt", "data/new/transactions1006.txt", "new");
-        Assertions.assertFalse(fileService.hasValidFileName(file));
+    public void testGetFileNamesFromPath() throws IOException {
+        Assertions.assertEquals("reference0001.txt", fileService.getAllFilesFromPath(Constant.DONE_FOLDER_PATH).get(0));
+    }
+
+   @Test
+    public void testFilesSentToGarbage() throws IOException {
+        Assertions.assertEquals(10, fileService.getFilesInGarbage().size());
     }
 
     @Test
-    public void testReadFileFromPath() throws IOException {
-        File file = fileService.getFileUsingFileName("data/new/transaction1006.txt");
-        Assertions.assertNotNull(file);
-        Assertions.assertEquals("transaction1006.txt", file.getName());
-        Assertions.assertEquals("new", file.getFolder());
+    public void testFileNameInGarbage() throws IOException {
+        Assertions.assertEquals("transactions1000.txt", fileService.getFilesInGarbage().get(0));
     }
 
     @Test
-    public void testGetAllNewFiles() throws IOException {
-        Assertions.assertEquals(11, fileService.getAllFilesFromPath(Constant.NEW_FOLDER_PATH).size());
+    public void testFilesProcessed() throws IOException {
+        Assertions.assertEquals(1, fileService.getProcessedFiles().size());
     }
 
     @Test
-    public void testGetAllProcessingFilesInSortedOrder() throws IOException {
-        Assertions.assertEquals("reference0001.txt", fileService.getAllFilesFromPath(Constant.PROCESSING_FOLDER_PATH).get(0).getName());
+    public void testFilesNotProcessed() throws IOException {
+        Assertions.assertEquals(0, fileService.getFilesWithErrors().size());
     }
 
-    @Test
-    public void testFilesMovedToProcessing() throws IOException {
-        List<File> files = fileService.getAllFilesFromPath(Constant.NEW_FOLDER_PATH);
-        Assertions.assertEquals(11, fileService.countMovedFiles(files, Constant.PROCESSING_FOLDER_PATH, Constant.PROCESSING));
-    }
 }

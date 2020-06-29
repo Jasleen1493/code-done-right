@@ -43,4 +43,9 @@ public class FileServiceTest {
         Assertions.assertEquals(0, fileService.getFilesWithErrors().size());
     }
 
+    @Test
+    public void testAllFilesAtPath() throws IOException {
+        String testPath = Constant.DONE_FOLDER_PATH;
+        Assertions.assertEquals(1,fileService.getAllFilesFromPath(testPath).size());
+    }
 }

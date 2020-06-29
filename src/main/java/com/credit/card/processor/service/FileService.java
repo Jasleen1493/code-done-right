@@ -12,6 +12,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import static com.credit.card.processor.constants.Constant.*;
 import static java.nio.file.Paths.get;
@@ -36,8 +37,8 @@ public class FileService {
     public List<String> getAllFilesFromPath(String path) throws IOException {
         return (Files.list(get(path)).filter(s -> s.toString().endsWith(FILE_EXTENSION))
                 .sorted()
-                .map(Path::toString))
-                .map(s -> s.split("/"))
+                .map(Path::toString))//.collect(Collectors.toList())
+                .map(s -> s.split(Pattern.quote(System.getProperty("file.separator"))))
                 .map(s -> s[2]).collect(toList());
     }
 
